@@ -14,7 +14,7 @@ T StringToNum(const std::string& s)//字符串转数字
 	return num;
 }
 std::map<std::string, size_t > addr;
-size_t n=0;
+size_t n = 0;
 struct my_grammar
 	: public boost::spirit::grammar<my_grammar>
 {
@@ -56,20 +56,21 @@ struct my_grammar
 			else if (s == "(") std::cout << "(33,0)";
 			else if (s == ")") std::cout << "(34,0)";
 			else if (s == ":") std::cout << "(35,0)";
-			else if(s[0]<='9' && s[0]>='0')std::cout << "(2," << StringToNum<size_t>(s) << ")";
+			else if (s[0] <= '9' && s[0] >= '0')std::cout << "(2," << StringToNum<size_t>(s) << ")";
 			else if (s[0] >= 'a' && s[0] <= 'z') {
 				if (s.size() > 8)
 					std::cout << "error(1)";
-				else{
+				else {
 					std::map<std::string, size_t >::iterator it;
-					it=addr.find(s);
+					it = addr.find(s);
 					if (it == addr.end()) {
-						addr[s]=++n;
+						addr[s] = ++n;
 						std::cout << "(1," << n << ")";
-					}else {
+					}
+					else {
 						std::cout << "(1," << it->second << ")";
 					}
-				}		
+				}
 			}
 			std::cout << s << std::endl;
 		}
@@ -84,19 +85,19 @@ struct my_grammar
 		{
 			using namespace boost::spirit;
 			wtf = *any;
-			any = 保留字| 标识符 | 单词符号 |正整数 | 双分界符|单分界符|斜竖 | 小于 | 大于 | 冒号| 数字 |字母;
+			any = 保留字 | 标识符 | 单词符号 | 正整数 | 双分界符 | 单分界符 | 斜竖 | 小于 | 大于 | 冒号 | 数字 | 字母;
 			单词符号 = +字母;
-			标识符 = (字母 >> *(数字| 字母))[print()];
+			标识符 = (字母 >> *(数字 | 字母))[print()];
 			正整数 = (+数字)[print()];
-			单分界符 = (ch_p("+") | ch_p("-") | ch_p("*") | ch_p("/") | ch_p("(") | ch_p(")") | ch_p(";") | ch_p(":")| ch_p(".") | ch_p("!")|ch_p(",") | ch_p("=")|(斜竖 - str_p("/*")) | (小于 - str_p("<=")) | (大于 - str_p(">=")))[print()];
-			双分界符 = ((冒号 >> ch_p("=")) | (小于 >> ch_p("=")) | (小于 >> ch_p(">")) | (大于 >> ch_p("=")) | str_p("&&")| str_p("||"))[print()];
+			单分界符 = (ch_p("+") | ch_p("-") | ch_p("*") | ch_p("/") | ch_p("(") | ch_p(")") | ch_p(";") | ch_p(":") | ch_p(".") | ch_p("!") | ch_p(",") | ch_p("=") | (斜竖 - str_p("/*")) | (小于 - str_p("<=")) | (大于 - str_p(">=")))[print()];
+			双分界符 = ((冒号 >> ch_p("=")) | (小于 >> ch_p("=")) | (小于 >> ch_p(">")) | (大于 >> ch_p("=")) | str_p("&&") | str_p("||"))[print()];
 			斜竖 = ch_p("/");
 			小于 = ch_p("<");
 			大于 = ch_p(">");
 			冒号 = ch_p(":");
 			数字 = digit_p;
 			字母 = lower_p;
-			保留字 = (str_p("program")| str_p("var") | str_p("procedure") | str_p("begin") | str_p("end") | str_p("if") | str_p("then") | str_p("else") | str_p("while") | str_p("do") | str_p("call") | str_p("real") | str_p("integer"))[print()];
+			保留字 = (str_p("program") | str_p("var") | str_p("procedure") | str_p("begin") | str_p("end") | str_p("if") | str_p("then") | str_p("else") | str_p("while") | str_p("do") | str_p("call") | str_p("real") | str_p("integer"))[print()];
 		}
 
 		const boost::spirit::rule<Scanner> &start()
@@ -117,7 +118,7 @@ int main(int argc, char *argv[])
 	ss << fs.rdbuf();
 	std::cout.rdbuf(outfile.rdbuf());
 	std::string data = ss.str();
-	//std::string data = "++; >=<=:=<>/*sdfsadfasdf23123123sdfsdf*22332376FDD_**/";
+	
 	for (size_t i = 0; i < data.size(); ++i) {
 		if (data[i] == '/' && data[i - 1] == '/') {
 			size_t f = i - 1;
@@ -128,9 +129,11 @@ int main(int argc, char *argv[])
 	for (size_t i = 0; i < data.size(); ++i) {
 		if (data[i] == '*' && data[i - 1] == '/') {
 			size_t f = i - 1;
-			for (++i; !(data[i] == '/' && data[i - 1] == '*'); ++i);
-			data[i] = ' ';
-			data.erase(f,i-f);
+			for (++i; (!(data[i] == '/' && data[i - 1] == '*')) && (i < data.size()); ++i);
+			if (i < data.size())
+				data[i] = ' ';
+			data.erase(f, i - f);
+			i = f-1;
 		}
 	}
 	my_grammar g;
@@ -138,15 +141,15 @@ int main(int argc, char *argv[])
 	if (pi.hit)
 	{
 		std::string s = pi.stop;
-		while (!pi.full){
+		while (!pi.full) {
 			if (s[0] != ' ' && s[0] != '\n') {
-				std::cout << "error(1)"<<s[0]<< std::endl;
+				std::cout << "error(1)" << s[0] << std::endl;
 			}
 			s.erase(s.begin());
 			pi = boost::spirit::parse(s.c_str(), g);
 			s = pi.stop;
 		}
-		std::cout << "分析成功！" <<std::endl;
+		//std::cout << "分析成功！" << std::endl;
 	}
 	else
 		std::cout << "分析失败！ 剩余字符串：\"" << pi.stop << "\"" << std::endl;
