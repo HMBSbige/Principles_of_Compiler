@@ -1,9 +1,9 @@
-#include <boost/spirit.hpp> 
+﻿#include <boost/spirit.hpp> 
 #include <fstream> 
 #include <sstream> 
 #include <iostream> 
 #include <string>
-#include <vector>
+//#include <vector>
 #include <map>
 template<class T>
 T StringToNum(const std::string& s)//字符串转数字
@@ -61,8 +61,7 @@ struct my_grammar
 				if (s.size() > 8)
 					std::cout << "error(1)";
 				else {
-					std::map<std::string, size_t >::iterator it;
-					it = addr.find(s);
+					auto it = addr.find(s);
 					if (it == addr.end()) {
 						addr[s] = ++n;
 						std::cout << "(1," << n << ")";
@@ -75,13 +74,13 @@ struct my_grammar
 			std::cout << s << std::endl;
 		}
 	};
-
+	
 	template <typename Scanner>
 	struct definition
 	{
 		boost::spirit::rule<Scanner> 单词符号, 标识符, 正整数, 单分界符, 双分界符, 斜竖, 小于, 大于, 冒号, 字母, 数字, 保留字, wtf, any;
 
-		definition(const my_grammar &self)
+		explicit definition(const my_grammar &self)
 		{
 			using namespace boost::spirit;
 			wtf = *any;
@@ -111,14 +110,14 @@ int main(int argc, char *argv[])
 {
 	std::ios::sync_with_stdio(false);
 	setlocale(LC_ALL, "");
-	std::ifstream fs("C:\\Users\\Bruce Wayne\\Desktop\\in.txt");//argv[1]
+	std::ifstream fs(R"(C:\Users\Bruce Wayne\Desktop\in.txt)");//argv[1]
 	std::ofstream outfile;
-	outfile.open("C:\\Users\\Bruce Wayne\\Desktop\\out.txt", std::ios::trunc);
+	outfile.open(R"(C:\Users\Bruce Wayne\Desktop\out.txt)", std::ios::trunc);
 	std::ostringstream ss;
 	ss << fs.rdbuf();
 	std::cout.rdbuf(outfile.rdbuf());
 	std::string data = ss.str();
-	
+
 	for (size_t i = 0; i < data.size(); ++i) {
 		if (data[i] == '/' && data[i - 1] == '/') {
 			size_t f = i - 1;
@@ -133,7 +132,7 @@ int main(int argc, char *argv[])
 			if (i < data.size())
 				data[i] = ' ';
 			data.erase(f, i - f);
-			i = f-1;
+			i = f - 1;
 		}
 	}
 	my_grammar g;
@@ -142,7 +141,7 @@ int main(int argc, char *argv[])
 	{
 		std::string s = pi.stop;
 		while (!pi.full) {
-			if (s[0] != ' ' && s[0] != '\n') {
+			if (s[0] != ' ' && s[0] != '\n' && s[0] != '\t') {
 				std::cout << "error(1)" << s[0] << std::endl;
 			}
 			s.erase(s.begin());

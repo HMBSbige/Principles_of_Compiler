@@ -1,0 +1,30 @@
+program abc;
+var a,b,c:integer;
+
+begin
+	a:=1;
+	b:=2;
+	c:=1+2*3+(4+5)*6;
+
+	if a+b<c
+	then
+	begin
+		a:=a+b;
+		b:=b+a
+	end
+	else
+		c:=1000;
+
+	while c>500 && c<2000 && c<>12 || c>4
+	do
+	begin
+		if a>3
+		then
+			c := c+500;
+		if c<4
+		then
+			if a>b || c<1
+			then
+				a:=1
+	end
+end.
