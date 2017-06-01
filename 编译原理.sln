@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.7
+VisualStudioVersion = 15.0.26430.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "语法分析", "语法分析\语法分析.vcxproj", "{22B3E7C5-1F4F-41A2-B143-B686306535CD}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "词法分析", "词法分析\词法分析.vcxproj", "{CE5851BD-2BC4-4465-AF02-5D0A916EEA90}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "语义分析", "语义分析\语义分析.vcxproj", "{2273277F-E17E-4337-9F86-3658798DC9A3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +33,14 @@ Global
 		{CE5851BD-2BC4-4465-AF02-5D0A916EEA90}.Release|x64.Build.0 = Release|x64
 		{CE5851BD-2BC4-4465-AF02-5D0A916EEA90}.Release|x86.ActiveCfg = Release|Win32
 		{CE5851BD-2BC4-4465-AF02-5D0A916EEA90}.Release|x86.Build.0 = Release|Win32
+		{2273277F-E17E-4337-9F86-3658798DC9A3}.Debug|x64.ActiveCfg = Debug|x64
+		{2273277F-E17E-4337-9F86-3658798DC9A3}.Debug|x64.Build.0 = Debug|x64
+		{2273277F-E17E-4337-9F86-3658798DC9A3}.Debug|x86.ActiveCfg = Debug|Win32
+		{2273277F-E17E-4337-9F86-3658798DC9A3}.Debug|x86.Build.0 = Debug|Win32
+		{2273277F-E17E-4337-9F86-3658798DC9A3}.Release|x64.ActiveCfg = Release|x64
+		{2273277F-E17E-4337-9F86-3658798DC9A3}.Release|x64.Build.0 = Release|x64
+		{2273277F-E17E-4337-9F86-3658798DC9A3}.Release|x86.ActiveCfg = Release|Win32
+		{2273277F-E17E-4337-9F86-3658798DC9A3}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
