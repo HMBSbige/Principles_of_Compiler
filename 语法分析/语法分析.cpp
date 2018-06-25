@@ -1,6 +1,6 @@
-﻿#include <fstream> 
-#include <sstream> 
-#include <iostream> 
+﻿#include <fstream>
+#include <sstream>
+#include <iostream>
 #include <string>
 #include <vector>
 using namespace std;
@@ -99,7 +99,7 @@ bool isCom()//复合语句
 	if (it == data1.end())
 		return false;
 	data1.erase(it);
-	if(!isStatementBlock())//语句串
+	if (!isStatementBlock())//语句串
 		return false;
 	it = data1.begin();
 	if (it == data1.end())
@@ -132,15 +132,15 @@ bool isfact()//因子
 		{
 			return false;
 		}
-			data1.erase(it);
-			return true;
+		data1.erase(it);
+		return true;
 	}
 	return isExpression();
 }
 
 bool isItem()//项
 {
-	if(!isfact())
+	if (!isfact())
 		return false;
 	auto it = data1.begin();
 	if (it == data1.end())
@@ -189,7 +189,7 @@ bool isRE()
 	if (it == data1.end())
 		return false;
 	if (*it != eryuan(23, 0, "<") || *it != eryuan(24, 0, "<=") || *it != eryuan(25, 0, ">") ||
-		*it != eryuan(26, 0, ">=") || *it != eryuan(27, 0, "=") || *it != eryuan(28, 0, "<>") )
+		*it != eryuan(26, 0, ">=") || *it != eryuan(27, 0, "=") || *it != eryuan(28, 0, "<>"))
 	{
 		data1.erase(it);
 		return true;
@@ -218,7 +218,7 @@ bool isboolExre()//布尔表达式
 		data1.erase(it);
 		return isRelation();
 	}
-	if(!isRelation())
+	if (!isRelation())
 		return false;
 	it = data1.begin();
 	if (it == data1.end())
@@ -258,7 +258,7 @@ bool isCon()//条件
 	it = data1.begin();
 	if (it == data1.end())
 		return false;
-	if (*it == eryuan(10, 0,"else")) // (10, 0)else
+	if (*it == eryuan(10, 0, "else")) // (10, 0)else
 	{
 		data1.erase(it);
 		return  isPhrase();
@@ -294,19 +294,19 @@ bool isPhrase()//语句
 		return isAssignment();
 	if (*it == eryuan(8, 0, "if"))
 		return isCon();
-	if(*it == eryuan(11, 0, "while"))
+	if (*it == eryuan(11, 0, "while"))
 		return isCycle();
 	return false;
 }
 
 bool isStatementBlock()//语句串
 {
-	if(!isPhrase())//语句
+	if (!isPhrase())//语句
 		return false;
 	auto it = data1.begin();
 	if (it == data1.end())
 		return false;
-	if(*it == eryuan(30, 0, ";"))
+	if (*it == eryuan(30, 0, ";"))
 	{
 		data1.erase(it);
 		return isStatementBlock();
@@ -333,11 +333,11 @@ bool isProgram()
 	if (*it != eryuan(7, 0, "end"))
 		return false;
 	data1.erase(it);
-	
+
 	it = data1.begin();
 	if (it == data1.end())
 		return false;
-	if (*it != eryuan(31, 0, ".") && it!= data1.end())//(31, 0).
+	if (*it != eryuan(31, 0, ".") && it != data1.end())//(31, 0).
 		return false;
 	data1.erase(it);
 	return true;
@@ -354,7 +354,7 @@ bool isPro()
 	it = data1.begin();
 	if (it == data1.end())
 		return false;
-	if(it->a!=1)
+	if (it->a != 1)
 		return false;
 	data1.erase(it);
 	it = data1.begin();
@@ -381,7 +381,7 @@ int main(int argc, char *argv[])
 	setlocale(LC_ALL, "");
 	std::ifstream fs(R"(C:\Users\Bruce Wayne\Desktop\out.txt)");
 	string strTemp;
-	while(getline(fs,strTemp,'\n'))
+	while (getline(fs, strTemp, '\n'))
 	{
 		int i;
 		string str = "";

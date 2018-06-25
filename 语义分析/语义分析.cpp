@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include <fstream>
 #include <stack>
 #include <string>
@@ -31,7 +31,7 @@ struct wtf
 
 
 template<class T = int>
-string ToString(const T& t)//数字转字符串
+string ToString(const T& t)//鏁板瓧杞瓧绗︿覆
 {
 	ostringstream oss;
 	oss << t;
@@ -39,7 +39,7 @@ string ToString(const T& t)//数字转字符串
 }
 
 template<class T = int>
-T StringToNum(const string& s)//字符串转数字
+T StringToNum(const string& s)//瀛楃涓茶浆鏁板瓧
 {
 	if (s == "")
 		return 0;
@@ -55,9 +55,9 @@ void addT()
 	string p("T");
 	T = p + q;
 }
-void LexicalAnalysis()//词法
+void LexicalAnalysis()//璇嶆硶
 {
-	for (int i = 0; i<10; i++)
+	for (int i = 0; i < 10; i++)
 		token[i] = '\0';
 	ch = str[j++];
 	while (ch == ' ' || ch == '\t' || ch == '\n')
@@ -78,14 +78,14 @@ void LexicalAnalysis()//词法
 		}
 		//j--;
 		token[i] = '\0';
-		if (i>8)
+		if (i > 8)
 		{
 			flag = -1;
 			return;
 		}
 		flag = 1;
 		j--;
-		for (i = 0; i<13; i++)
+		for (i = 0; i < 13; i++)
 		{
 			if (ReservedWord[i] == token)
 			{
@@ -93,7 +93,7 @@ void LexicalAnalysis()//词法
 				return;
 			}
 		}
-		for (int m = 1; m<50; m++)
+		for (int m = 1; m < 50; m++)
 		{
 			string temp(token);
 			if (IDentifier[m].length() == 0)
@@ -379,7 +379,7 @@ void program()
 	LexicalAnalysis();//;
 }
 
-void Table()//变量表
+void Table()//鍙橀噺琛?
 {
 	LexicalAnalysis();
 	LexicalAnalysis();//,
@@ -388,11 +388,11 @@ void Table()//变量表
 	else
 		j = _j;
 }
-void Type()//类型
+void Type()//绫诲瀷
 {
 	LexicalAnalysis();//integer
 }
-void Vartable()//变量声明表
+void Vartable()//鍙橀噺澹版槑琛?
 {
 	Table();
 	LexicalAnalysis();//:
@@ -410,12 +410,12 @@ void Vartable()//变量声明表
 
 	}
 }
-void Var()//变量声明
+void Var()//鍙橀噺澹版槑
 {
 	LexicalAnalysis();//var
 	Vartable();
 }
-int CompoundStatement()//复合
+int CompoundStatement()//澶嶅悎
 {
 	LexicalAnalysis();
 	if (flag != 6)
@@ -443,7 +443,7 @@ int CompoundStatement()//复合
 	LexicalAnalysis();//end
 	return 1;
 }
-void Expression()  //表达式
+void Expression()  //琛ㄨ揪寮?
 {
 	Item();
 
@@ -465,7 +465,7 @@ void Expression()  //表达式
 	}
 	j = _j;//;
 }
-bool Bracket()//括号
+bool Bracket()//鎷彿
 {
 	LexicalAnalysis();
 	if (flag != 33)//(
@@ -477,7 +477,7 @@ bool Bracket()//括号
 	LexicalAnalysis();
 	return true;
 }
-void Factor()//因子
+void Factor()//鍥犲瓙
 {
 	LexicalAnalysis();
 	if (flag == 1 || flag == 2)
@@ -489,7 +489,7 @@ void Factor()//因子
 			return;
 	}
 }
-void Item()//项
+void Item()//椤?
 {
 	Factor();
 
@@ -512,7 +512,7 @@ void Item()//项
 	j = _j;//;
 
 }
-bool Relation()//关系
+bool Relation()//鍏崇郴
 {
 	LexicalAnalysis();
 	if (flag >= 23 && flag <= 28)
@@ -526,7 +526,7 @@ bool Relation()//关系
 	return true;
 
 }
-void RelationExpression()//关系表达式
+void RelationExpression()//鍏崇郴琛ㄨ揪寮?
 {
 	Expression();
 	if (Relation())
@@ -534,7 +534,7 @@ void RelationExpression()//关系表达式
 	else
 		temp.push(" ");
 }
-void BoolExpression()  //布尔表达式
+void BoolExpression()  //甯冨皵琛ㄨ揪寮?
 {
 	LexicalAnalysis();
 	if (flag == 20)//!
@@ -585,7 +585,7 @@ void BoolExpression()  //布尔表达式
 		}
 		else if (mark == 21)//&&
 		{
-			
+
 			num[no].arg2 = temp.top();
 			temp.pop();
 			num[no].op = temp.top();
@@ -600,7 +600,7 @@ void BoolExpression()  //布尔表达式
 
 			ck.tc = no++;
 
-			
+
 			num[no].arg2 = " ";
 			num[no].op = "j";
 			num[no].arg1 = " ";
@@ -612,12 +612,12 @@ void BoolExpression()  //布尔表达式
 
 
 			no++;
-			
+
 		}
 		else if (mark == 22)//||
 		{
-			//回填前面的&&
-			
+			//鍥炲～鍓嶉潰鐨?&
+
 			num[no].arg2 = temp.top();
 			temp.pop();
 			num[no].op = temp.top();
@@ -639,7 +639,7 @@ void BoolExpression()  //布尔表达式
 		LexicalAnalysis();
 
 		if (flag == 22)//||
-		{		
+		{
 			mark = 22;
 			BoolExpression();
 		}
@@ -651,7 +651,7 @@ void BoolExpression()  //布尔表达式
 		else j = _j;
 	}
 }
-int Assignment()//赋值
+int Assignment()//璧嬪€?
 {
 	LexicalAnalysis();
 	if (flag != 1)
@@ -674,7 +674,7 @@ int Assignment()//赋值
 	return 1;
 
 }
-int ConditionalStatement()//条件语句
+int ConditionalStatement()//鏉′欢璇彞
 {
 	LexicalAnalysis();//if
 	if (flag != 8)
@@ -693,7 +693,7 @@ int ConditionalStatement()//条件语句
 	while (ck.fc != 0)
 	{
 		chain.push(ck.fc);
-		ck.fc = StringToNum(num[ck.fc].result);//归零
+		ck.fc = StringToNum(num[ck.fc].result);//褰掗浂
 											   // cout<<ck.fc<<endl;
 	}
 	LexicalAnalysis();//then
@@ -724,7 +724,7 @@ int ConditionalStatement()//条件语句
 
 	return 1;
 }
-int CircularStatement()//循环语句
+int CircularStatement()//寰幆璇彞
 {
 	LexicalAnalysis();//while
 	if (flag != 11)
@@ -765,7 +765,7 @@ int CircularStatement()//循环语句
 
 	return 1;
 }
-int Phrase()//语句
+int Phrase()//璇彞
 {
 	mark = 1;
 	if (CompoundStatement())
@@ -778,12 +778,12 @@ int Phrase()//语句
 		return 2;
 	return 0;
 }
-void StatementBlock()//语句串
+void StatementBlock()//璇彞涓?
 {
 	Phrase();
 	while (LexicalAnalysis(), flag == 30)
 	{
-		if (chain.top() != 0)//回填
+		if (chain.top() != 0)//鍥炲～
 		{
 			num[chain.top()].result = ToString(no);
 			chain.pop();
@@ -825,7 +825,7 @@ int main()
 	program();
 	programbody();
 
-	for (int i = 1; i<no; ++i)
+	for (int i = 1; i < no; ++i)
 		if (num[i].op == ">" || num[i].op == "<" || num[i].op == "<>")
 			result << i << ". (j" << num[i].op << ", " << num[i].arg1 << ", " << num[i].arg2 << ", " << num[i].result << ")" << endl;
 		else if (num[i].op == " ")

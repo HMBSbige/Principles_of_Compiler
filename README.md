@@ -1,17 +1,8 @@
 # Principles_of_Compiler
 编译原理
 
-## 用vs2017 x64编译boost_1_64_0
+## 编译boost_1_67_0
 **Compiling with MSVC 2017 x64 (static linkage)**
-
-从```C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Auxiliary\Build```
-
-复制```vcvarsall.bat```到
-
-```C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Tools\MSVC\14.10.25017\bin\HostX64```
-
-运行
-> %comspec% /k "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
 
 > bootstrap.bat
 

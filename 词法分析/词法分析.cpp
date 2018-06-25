@@ -1,10 +1,10 @@
-﻿#include <boost/spirit.hpp> 
-#include <fstream> 
-#include <sstream> 
-#include <iostream> 
+﻿#include <boost/spirit.hpp>
+#include <fstream>
+#include <sstream>
+#include <iostream>
 #include <string>
-//#include <vector>
 #include <map>
+
 template<class T>
 T StringToNum(const std::string& s)//字符串转数字
 {
@@ -13,8 +13,10 @@ T StringToNum(const std::string& s)//字符串转数字
 	ss >> num;
 	return num;
 }
+
 std::map<std::string, size_t > addr;
 size_t n = 0;
+
 struct my_grammar
 	: public boost::spirit::grammar<my_grammar>
 {
@@ -74,7 +76,7 @@ struct my_grammar
 			std::cout << s << std::endl;
 		}
 	};
-	
+
 	template <typename Scanner>
 	struct definition
 	{
